@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
+import java.util.Date;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -21,7 +22,7 @@ public class Drill<T> implements Specification<T> {
     }
 
     public static <T> Drill<T> where(Specification<T> specification) {
-        return new Drill<T>().and(specification);
+        return new Drill<T>().<T>and(specification);
     }
 
     public static <T, Y> AttributeDrill<T, Y> where(SingularAttribute<T, Y> attribute) {
@@ -42,6 +43,18 @@ public class Drill<T> implements Specification<T> {
         return new AttributeDrill<>(attribute, this::and);
     }
 
+    public <Y extends Comparable<? super Y>> AttributeComparableDrill<T, Y> andComparable(SingularAttribute<T, Y> attribute) {
+        return new AttributeComparableDrill<>(attribute, this::and);
+    }
+
+    public AttributeDateDrill<T> andDate(SingularAttribute<T, Date> attribute) {
+        return new AttributeDateDrill<>(attribute, this::and);
+    }
+
+    public AttributeStringDrill<T> andString(SingularAttribute<T, String> attribute) {
+        return new AttributeStringDrill<>(attribute, this::and);
+    }
+
     /**
      * Joins all specifications to the currently-built specification by way of "OR"
      *
@@ -54,6 +67,18 @@ public class Drill<T> implements Specification<T> {
 
     public <Y> AttributeDrill<T, Y> or(SingularAttribute<T, Y> attribute) {
         return new AttributeDrill<>(attribute, this::or);
+    }
+
+    public <Y extends Comparable<? super Y>> AttributeComparableDrill<T, Y> orComparable(SingularAttribute<T, Y> attribute) {
+        return new AttributeComparableDrill<>(attribute, this::or);
+    }
+
+    public AttributeDateDrill<T> orDate(SingularAttribute<T, Date> attribute) {
+        return new AttributeDateDrill<>(attribute, this::or);
+    }
+
+    public AttributeStringDrill<T> orString(SingularAttribute<T, String> attribute) {
+        return new AttributeStringDrill<>(attribute, this::or);
     }
 
     @Override
