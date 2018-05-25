@@ -48,8 +48,6 @@ public class AttributeDrill<T, Y> implements Specification<T> {
         return this;
     }
 
-
-
     /**
      * Determines whether the column is equal to the given value.
      * <p>

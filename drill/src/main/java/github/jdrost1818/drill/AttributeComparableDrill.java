@@ -31,4 +31,9 @@ public class AttributeComparableDrill<T, Y extends Comparable<? super Y>> extend
                 (root, query, cb) -> cb.lessThanOrEqualTo(root.get(this.attribute), val));
     }
 
+    @Override
+    public AttributeComparableDrill<T, Y> not() {
+        return (AttributeComparableDrill<T, Y>) super.not();
+    }
+
 }

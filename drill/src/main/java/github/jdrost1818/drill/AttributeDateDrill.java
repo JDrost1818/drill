@@ -28,4 +28,9 @@ public class AttributeDateDrill<T> extends AttributeComparableDrill<T, Date> {
         return super.greaterThanOrEqualTo(date);
     }
 
+    @Override
+    public AttributeDateDrill<T> not() {
+        return (AttributeDateDrill<T>) super.not();
+    }
+
 }

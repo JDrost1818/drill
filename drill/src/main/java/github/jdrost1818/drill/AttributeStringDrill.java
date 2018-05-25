@@ -103,4 +103,9 @@ public class AttributeStringDrill<T> extends AttributeComparableDrill<T, String>
     public Drill<T> endsWithIgnoreCase(String str) {
         return this.likeIgnoreCase("%" + str);
     }
+
+    @Override
+    public AttributeStringDrill<T> not() {
+        return (AttributeStringDrill<T>) super.not();
+    }
 }

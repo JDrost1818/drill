@@ -29,6 +29,18 @@ public class Drill<T> implements Specification<T> {
         return new Drill<T>().and(attribute);
     }
 
+    public static <T, Y extends Comparable<? super Y>> AttributeComparableDrill<T, Y> whereComparable(SingularAttribute<T, Y> attribute) {
+        return new Drill<T>().andComparable(attribute);
+    }
+
+    public static <T> AttributeDateDrill<T> whereDate(SingularAttribute<T, Date> attribute) {
+        return new Drill<T>().andDate(attribute);
+    }
+
+    public static <T> AttributeStringDrill<T> whereString(SingularAttribute<T, String> attribute) {
+        return new Drill<T>().andString(attribute);
+    }
+
     /**
      * Joins all specifications to the currently-built specification by way of "AND"
      *
