@@ -12,7 +12,7 @@ public class AttributeStringDrill<T> extends AttributeDrill<T, String> {
     }
 
     public Drill<T> equalsIgnoreCase(String val) {
-        return super.append(
+        return super.build(
                 (root, query, cb) -> cb.equal(cb.upper(root.get(this.attribute)), val.toUpperCase()));
     }
 }
