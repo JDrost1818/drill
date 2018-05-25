@@ -1,6 +1,6 @@
 package github.jdrost1818.drill;
 
-import github.jdrost1818.domain.PersonCreator;
+import github.jdrost1818.drill.domain.PersonCreator;
 import github.jdrost1818.drilltest.DrillTestApplication;
 import github.jdrost1818.drilltest.domain.Person;
 import github.jdrost1818.drilltest.domain.Person_;

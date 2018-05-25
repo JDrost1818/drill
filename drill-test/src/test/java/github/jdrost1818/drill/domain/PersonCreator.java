@@ -1,4 +1,4 @@
-package github.jdrost1818.domain;
+package github.jdrost1818.drill.domain;
 
 import github.jdrost1818.drilltest.domain.Person;
 
