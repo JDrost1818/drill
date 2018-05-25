@@ -1,17 +1,19 @@
 package github.jdrost1818.drill;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.Nullable;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.SingularAttribute;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Function;
 
 import static java.util.Objects.isNull;
 
-public class Drill<T> {
+public class Drill<T> implements Specification<T> {
 
     Specification<T> spec = null;
 
@@ -30,11 +32,11 @@ public class Drill<T> {
     /**
      * Joins all specifications to the currently-built specification by way of "AND"
      *
-     * @param specifications specifications to join
+     * @param specification specifications to join
      * @return the builder
      */
-    public Drill<T> and(Specification<T>... specifications) {
-        return this.safeAppend((safeSpec) -> this.spec.and(safeSpec), specifications);
+    public Drill<T> and(Specification<T> specification) {
+        return this.safeAppend(specification, (safeSpec) -> this.spec.and(safeSpec));
     }
 
     public <Y> AttributeDrill<T, Y> and(SingularAttribute<T, Y> attribute) {
@@ -44,29 +46,22 @@ public class Drill<T> {
     /**
      * Joins all specifications to the currently-built specification by way of "OR"
      *
-     * @param specifications specifications to join
+     * @param specification specifications to join
      * @return the builder
      */
-    public Drill<T> or(Specification<T>... specifications) {
-        return this.safeAppend((safeSpec) -> this.spec.or(safeSpec), specifications);
+    public Drill<T> or(Specification<T> specification) {
+        return this.safeAppend(specification, (safeSpec) -> this.spec.or(safeSpec));
     }
 
     public <Y> AttributeDrill<T, Y> or(SingularAttribute<T, Y> attribute) {
         return new AttributeDrill<>(attribute, this::or);
     }
 
-    @Nullable
-    public Specification<T> build() {
-        return this.spec;
-    }
-
-    private Drill<T> safeAppend(Function<Specification<T>, Specification<T>> appendAction, Specification<T>... specs) {
-        Optional.of(specs)
-                .filter(ArrayUtils::isEmpty)
-                .map(Arrays::asList)
-                .ifPresent(l -> l.forEach(spec -> this.safeAppend(spec, appendAction)));
-
-        return this;
+    @Override
+    public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
+        return isNull(this.spec)
+                ? null
+                : this.spec.toPredicate(root, query, builder);
     }
 
     private Drill<T> safeAppend(Specification<T> spec, Function<Specification<T>, Specification<T>> appendAction) {
