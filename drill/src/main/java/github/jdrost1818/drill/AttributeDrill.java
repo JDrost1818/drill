@@ -49,6 +49,22 @@ public class AttributeDrill<T, Y> implements Specification<T> {
     }
 
     /**
+     * Gives a better name for negating some queries, though
+     * performs the same functionality as {@link AttributeDrill#not()}
+     * <p>
+     * Usage:
+     * <code>
+     * something().doesNot().contain(...)
+     * </code>
+     *
+     * @return itself for chaining
+     * @see AttributeDrill#not()
+     */
+    public AttributeDrill<T, Y> doesNot() {
+        return this.not();
+    }
+
+    /**
      * Determines whether the column is equal to the given value.
      * <p>
      * This will not work with <code>null</code>.

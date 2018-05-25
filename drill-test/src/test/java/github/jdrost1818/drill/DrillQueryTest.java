@@ -5,7 +5,6 @@ import github.jdrost1818.drilltest.DrillTestApplication;
 import github.jdrost1818.drilltest.domain.Person;
 import github.jdrost1818.drilltest.domain.Person_;
 import github.jdrost1818.drilltest.repository.PersonRepository;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
