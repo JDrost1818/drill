@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = DrillTestApplication.class)
 @ActiveProfiles("test")
-public class DrillTest {
+public class DrillUnitTest {
 
     @Test
     public void testWhere_null_spec() {
