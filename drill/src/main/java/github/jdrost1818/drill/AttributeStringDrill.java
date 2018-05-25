@@ -17,7 +17,7 @@ public class AttributeStringDrill<T> extends AttributeComparableDrill<T, String>
      * @param str valid value
      * @return the builder for chaining
      */
-    public Drill<T> equalsIgnoreCase(String str) {
+    public Drill<T> equalToIgnoreCase(String str) {
         return super.build(
                 (root, query, cb) -> cb.equal(cb.upper(root.get(this.attribute)), str.toUpperCase()));
     }
