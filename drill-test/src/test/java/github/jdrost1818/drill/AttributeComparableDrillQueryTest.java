@@ -87,4 +87,59 @@ public class AttributeComparableDrillQueryTest {
         assertThat(people.get(0).getAge(), equalTo(0L));
     }
 
+    @Test
+    public void testLessThan() {
+        Person shouldBeFound = Person.builder().age(0L).build();
+        Person shouldNotBeFound = Person.builder().age(10L).build();
+
+        personRepository.saveAll(Arrays.asList(shouldBeFound, shouldNotBeFound));
+
+        List<Person> people = personRepository.findAll(Drill.whereComparable(Person_.age).lessThan(5L));
+
+        assertThat(people, hasSize(1));
+        assertThat(people.get(0).getAge(), equalTo(0L));
+    }
+
+    @Test
+    public void testLessThan_not() {
+        Person shouldBeFound = Person.builder().age(10L).build();
+        Person shouldNotBeFound = Person.builder().age(0L).build();
+
+        personRepository.saveAll(Arrays.asList(shouldBeFound, shouldNotBeFound));
+
+        List<Person> people = personRepository.findAll(Drill.whereComparable(Person_.age).not().lessThan(5L));
+
+        assertThat(people, hasSize(1));
+        assertThat(people.get(0).getAge(), equalTo(10L));
+    }
+
+    @Test
+    public void testLessThanOrEqual() {
+        Person shouldBeFound1 = Person.builder().age(5L).build();
+        Person shouldBeFound2 = Person.builder().age(0L).build();
+        Person shouldNotBeFound = Person.builder().age(10L).build();
+
+        personRepository.saveAll(Arrays.asList(shouldBeFound1, shouldBeFound2, shouldNotBeFound));
+
+        List<Person> people = personRepository.findAll(Drill.whereComparable(Person_.age).lessThanOrEqualTo(5L));
+
+        assertThat(people, hasSize(2));
+        assertThat(people.get(0).getAge(), equalTo(5L));
+        assertThat(people.get(1).getAge(), equalTo(0L));
+    }
+
+    @Test
+    public void testLessThanOrEqual_not() {
+        Person shouldNotBeFound1 = Person.builder().age(5L).build();
+        Person shouldNotBeFound2 = Person.builder().age(0L).build();
+        Person shouldBeFound = Person.builder().age(10L).build();
+
+        personRepository.saveAll(Arrays.asList(shouldNotBeFound1, shouldNotBeFound2, shouldBeFound));
+
+        List<Person> people = personRepository.findAll(Drill.whereComparable(Person_.age).not().lessThanOrEqualTo(5L));
+
+        assertThat(people, hasSize(1));
+        assertThat(people.get(0).getAge(), equalTo(10L));
+    }
+
 }
