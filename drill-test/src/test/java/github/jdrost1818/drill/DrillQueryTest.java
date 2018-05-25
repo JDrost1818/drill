@@ -6,6 +6,7 @@ import github.jdrost1818.drilltest.domain.Person;
 import github.jdrost1818.drilltest.domain.Person_;
 import github.jdrost1818.drilltest.repository.PersonRepository;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -29,9 +31,9 @@ public class DrillQueryTest {
     @Autowired
     private PersonRepository personRepository;
 
-    @After
-    public void tearDown() {
-        this.personRepository.deleteAll();
+    @Before
+    public void setUp() {
+        personRepository.deleteAll();
     }
 
     @Test
@@ -59,19 +61,20 @@ public class DrillQueryTest {
 
     @Test
     public void testSpecificationsGetAddedCorrectly() {
-        Person shouldBeFound = Person.builder().name("Jake").id(1L).build();
+        Date dateOfBirth = new Date(10000);
+        Person shouldBeFound = Person.builder().name("Jake").dateOfBirth(dateOfBirth).build();
         Person shouldNotBeFound = Person.builder().name("Jake").id(2L).build();
         Drill<Person> drill = Drill
-                .where(Specification.<Person>where((root, query, builder) -> builder.equal(root.get(Person_.name), "Jake")))
-                .and(Specification.<Person>where((root, query, builder) -> builder.equal(root.get(Person_.id), 1L)));
+                .where(Specification.<Person>where((root, query, builder) -> builder.equal(root.get(Person_.name), shouldBeFound.getName())))
+                .and(Specification.<Person>where((root, query, builder) -> builder.equal(root.get(Person_.dateOfBirth), shouldBeFound.getDateOfBirth())));
 
         personRepository.saveAll(Arrays.asList(shouldBeFound, shouldNotBeFound));
 
         List<Person> foundPerson = personRepository.findAll(drill);
 
         assertThat(foundPerson, hasSize(1));
-        assertThat(foundPerson.get(0).getId(), equalTo(1L));
-        assertThat(foundPerson.get(0).getName(), equalTo("Jake"));
+        assertThat(foundPerson.get(0).getName(), equalTo(shouldBeFound.getName()));
+        assertThat(foundPerson.get(0).getDateOfBirth().getTime(), equalTo(shouldBeFound.getDateOfBirth().getTime()));
     }
 
     @Test

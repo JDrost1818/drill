@@ -44,7 +44,7 @@ public class AttributeDrill<T, Y> implements Specification<T> {
                 (root, query, cb) -> root.get(attribute).in(collection));
     }
 
-    protected Drill<T> append(Specification<T> spec) {
+    Drill<T> append(Specification<T> spec) {
         this.query = spec;
 
         return this.appendMethod.apply(this);
