@@ -48,21 +48,7 @@ public class AttributeDrill<T, Y> implements Specification<T> {
         return this;
     }
 
-    /**
-     * Gives a better name for negating some queries, though
-     * performs the same functionality as {@link AttributeDrill#not()}
-     * <p>
-     * Usage:
-     * <code>
-     * something().doesNot().contain(...)
-     * </code>
-     *
-     * @return itself for chaining
-     * @see AttributeDrill#not()
-     */
-    public AttributeDrill<T, Y> doesNot() {
-        return this.not();
-    }
+
 
     /**
      * Determines whether the column is equal to the given value.
@@ -76,6 +62,18 @@ public class AttributeDrill<T, Y> implements Specification<T> {
     public <X extends Y> Drill<T> equalTo(X val) {
         return this.build(
                 (root, query, cb) -> cb.equal(root.get(this.attribute), val));
+    }
+
+    /**
+     * Determines whether the column is equal to the value
+     * of another column in the table.
+     *
+     * @param otherColumn column with which to check equality
+     * @return the newly updated {@link Drill} for chaining
+     */
+    public <X extends Y> Drill<T> equalTo(SingularAttribute<T, X> otherColumn) {
+        return this.build(
+                (root, query, cb) -> cb.equal(root.get(this.attribute), root.get(otherColumn)));
     }
 
     /**

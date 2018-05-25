@@ -1,6 +1,7 @@
 package github.jdrost1818.drill.domain;
 
 import github.jdrost1818.drilltest.domain.Person;
+import github.jdrost1818.drilltest.domain.Sex;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +23,8 @@ public class PersonCreator {
         return Person.builder()
                 .name("name " + random.nextInt())
                 .dateOfBirth(new Date(random.nextLong()))
+                .age(random.nextLong())
+                .sex(random.nextInt() % 2 == 0 ? Sex.MALE : Sex.FEMALE)
                 .build();
     }
 

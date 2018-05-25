@@ -24,6 +24,10 @@ public class Person {
 
     private String name;
 
+    private Long age;
+
     private Date dateOfBirth;
+
+    private Sex sex;
 
 }
