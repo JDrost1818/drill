@@ -21,7 +21,7 @@ public class PersonCreator {
 
     public static Person create() {
         return Person.builder()
-                .name("name " + random.nextInt())
+                .firstName("firstName " + random.nextInt())
                 .dateOfBirth(new Date(random.nextLong()))
                 .age(random.nextLong())
                 .sex(random.nextInt() % 2 == 0 ? Sex.MALE : Sex.FEMALE)

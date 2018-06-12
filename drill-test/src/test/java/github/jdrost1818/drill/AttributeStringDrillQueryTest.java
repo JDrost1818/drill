@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -35,60 +34,60 @@ public class AttributeStringDrillQueryTest {
 
     @Test
     public void testEqualToIgnoreCase() {
-        Person shouldBeFound1 = Person.builder().name("John Doe").build();
-        Person shouldBeFound2 = Person.builder().name("JoHn DoE").build();
-        Person shouldNotBeFound = Person.builder().name("something else entirely").build();
+        Person shouldBeFound1 = Person.builder().firstName("John Doe").build();
+        Person shouldBeFound2 = Person.builder().firstName("JoHn DoE").build();
+        Person shouldNotBeFound = Person.builder().firstName("something else entirely").build();
 
         personRepository.saveAll(Arrays.asList(shouldBeFound1, shouldBeFound2, shouldNotBeFound));
 
-        List<Person> people = personRepository.findAll(Drill.whereString(Person_.name).equalToIgnoreCase("john doe"));
+        List<Person> people = personRepository.findAll(Drill.whereString(Person_.firstName).equalToIgnoreCase("john doe"));
 
         assertThat(people, hasSize(2));
-        assertThat(people.get(0).getName(), equalTo(shouldBeFound1.getName()));
-        assertThat(people.get(1).getName(), equalTo(shouldBeFound2.getName()));
+        assertThat(people.get(0).getFirstName(), equalTo(shouldBeFound1.getFirstName()));
+        assertThat(people.get(1).getFirstName(), equalTo(shouldBeFound2.getFirstName()));
     }
 
     @Test
     public void testEqualToIgnoreCase_not() {
-        Person shouldBeFound = Person.builder().name("something else entirely").build();
-        Person shouldNotBeFound1 = Person.builder().name("JoHn DoE").build();
-        Person shouldNotBeFound2 = Person.builder().name("John Doe").build();
+        Person shouldBeFound = Person.builder().firstName("something else entirely").build();
+        Person shouldNotBeFound1 = Person.builder().firstName("JoHn DoE").build();
+        Person shouldNotBeFound2 = Person.builder().firstName("John Doe").build();
 
         personRepository.saveAll(Arrays.asList(shouldBeFound, shouldNotBeFound1, shouldNotBeFound2));
 
-        List<Person> people = personRepository.findAll(Drill.whereString(Person_.name).not().equalToIgnoreCase("john doe"));
+        List<Person> people = personRepository.findAll(Drill.whereString(Person_.firstName).not().equalToIgnoreCase("john doe"));
 
         assertThat(people, hasSize(1));
-        assertThat(people.get(0).getName(), equalTo(shouldBeFound.getName()));
+        assertThat(people.get(0).getFirstName(), equalTo(shouldBeFound.getFirstName()));
     }
 
     @Test
     public void like() {
-        Person shouldBeFound1 = Person.builder().name("John T Doe").build();
-        Person shouldBeFound2 = Person.builder().name("Phohn Doel").build();
-        Person shouldNotBeFound1 = Person.builder().name("Simple Simple").build();
+        Person shouldBeFound1 = Person.builder().firstName("John T Doe").build();
+        Person shouldBeFound2 = Person.builder().firstName("Phohn Doel").build();
+        Person shouldNotBeFound1 = Person.builder().firstName("Simple Simple").build();
 
         personRepository.saveAll(Arrays.asList(shouldBeFound1, shouldBeFound2, shouldNotBeFound1));
 
-        List<Person> people = personRepository.findAll(Drill.whereString(Person_.name).like("%ohn%Do%"));
+        List<Person> people = personRepository.findAll(Drill.whereString(Person_.firstName).like("%ohn%Do%"));
 
         assertThat(people, hasSize(2));
-        assertThat(people.get(0).getName(), equalTo(shouldBeFound1.getName()));
-        assertThat(people.get(1).getName(), equalTo(shouldBeFound2.getName()));
+        assertThat(people.get(0).getFirstName(), equalTo(shouldBeFound1.getFirstName()));
+        assertThat(people.get(1).getFirstName(), equalTo(shouldBeFound2.getFirstName()));
     }
 
     @Test
     public void like_not() {
-        Person shouldBeFound = Person.builder().name("Simple Simple").build();
-        Person shouldNotBeFound1 = Person.builder().name("Phohn Doel").build();
-        Person shouldNotBeFound2 = Person.builder().name("John T Doe").build();
+        Person shouldBeFound = Person.builder().firstName("Simple Simple").build();
+        Person shouldNotBeFound1 = Person.builder().firstName("Phohn Doel").build();
+        Person shouldNotBeFound2 = Person.builder().firstName("John T Doe").build();
 
         personRepository.saveAll(Arrays.asList(shouldBeFound, shouldNotBeFound1, shouldNotBeFound2));
 
-        List<Person> people = personRepository.findAll(Drill.whereString(Person_.name).not().like("%ohn%Do%"));
+        List<Person> people = personRepository.findAll(Drill.whereString(Person_.firstName).not().like("%ohn%Do%"));
 
         assertThat(people, hasSize(1));
-        assertThat(people.get(0).getName(), equalTo(shouldBeFound.getName()));
+        assertThat(people.get(0).getFirstName(), equalTo(shouldBeFound.getFirstName()));
     }
 
 }

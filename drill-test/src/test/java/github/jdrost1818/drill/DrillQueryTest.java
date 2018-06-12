@@ -46,25 +46,25 @@ public class DrillQueryTest {
 
     @Test
     public void testSpecificationsGetCopiedCorrectly() {
-        Person shouldBeFound = Person.builder().name("Jake").build();
-        Person shouldNotBeFound = Person.builder().name("John").build();
-        Drill<Person> drill = Drill.where(Specification.where((root, query, builder) -> builder.equal(root.get(Person_.name), "Jake")));
+        Person shouldBeFound = Person.builder().firstName("Jake").build();
+        Person shouldNotBeFound = Person.builder().firstName("John").build();
+        Drill<Person> drill = Drill.where(Specification.where((root, query, builder) -> builder.equal(root.get(Person_.firstName), "Jake")));
 
         personRepository.saveAll(Arrays.asList(shouldBeFound, shouldNotBeFound));
 
         List<Person> foundPerson = personRepository.findAll(drill);
 
         assertThat(foundPerson, hasSize(1));
-        assertThat(foundPerson.get(0).getName(), equalTo("Jake"));
+        assertThat(foundPerson.get(0).getFirstName(), equalTo("Jake"));
     }
 
     @Test
     public void testSpecificationsGetAddedCorrectly() {
         Date dateOfBirth = new Date(10000);
-        Person shouldBeFound = Person.builder().name("Jake").dateOfBirth(dateOfBirth).build();
-        Person shouldNotBeFound = Person.builder().name("Jake").id(2L).build();
+        Person shouldBeFound = Person.builder().firstName("Jake").dateOfBirth(dateOfBirth).build();
+        Person shouldNotBeFound = Person.builder().firstName("Jake").id(2L).build();
         Drill<Person> drill = Drill
-                .where(Specification.<Person>where((root, query, builder) -> builder.equal(root.get(Person_.name), shouldBeFound.getName())))
+                .where(Specification.<Person>where((root, query, builder) -> builder.equal(root.get(Person_.firstName), shouldBeFound.getFirstName())))
                 .and(Specification.<Person>where((root, query, builder) -> builder.equal(root.get(Person_.dateOfBirth), shouldBeFound.getDateOfBirth())));
 
         personRepository.saveAll(Arrays.asList(shouldBeFound, shouldNotBeFound));
@@ -72,26 +72,26 @@ public class DrillQueryTest {
         List<Person> foundPerson = personRepository.findAll(drill);
 
         assertThat(foundPerson, hasSize(1));
-        assertThat(foundPerson.get(0).getName(), equalTo(shouldBeFound.getName()));
+        assertThat(foundPerson.get(0).getFirstName(), equalTo(shouldBeFound.getFirstName()));
         assertThat(foundPerson.get(0).getDateOfBirth().getTime(), equalTo(shouldBeFound.getDateOfBirth().getTime()));
     }
 
     @Test
     public void testSpecificationsGetOredCorrectly() {
-        Person shouldBeFound1 = Person.builder().name("Jake").build();
-        Person shouldBeFound2 = Person.builder().name("John").build();
-        Person shouldNotBeFound = Person.builder().name("Jeff").build();
+        Person shouldBeFound1 = Person.builder().firstName("Jake").build();
+        Person shouldBeFound2 = Person.builder().firstName("John").build();
+        Person shouldNotBeFound = Person.builder().firstName("Jeff").build();
         Drill<Person> drill = Drill
-                .where(Specification.<Person>where((root, query, builder) -> builder.equal(root.get(Person_.name), "Jake")))
-                .or(Specification.<Person>where((root, query, builder) -> builder.equal(root.get(Person_.name), "John")));
+                .where(Specification.<Person>where((root, query, builder) -> builder.equal(root.get(Person_.firstName), "Jake")))
+                .or(Specification.<Person>where((root, query, builder) -> builder.equal(root.get(Person_.firstName), "John")));
 
         personRepository.saveAll(Arrays.asList(shouldBeFound1, shouldBeFound2, shouldNotBeFound));
 
         List<Person> foundPerson = personRepository.findAll(drill);
 
         assertThat(foundPerson, hasSize(2));
-        assertThat(foundPerson.get(0).getName(), equalTo("Jake"));
-        assertThat(foundPerson.get(1).getName(), equalTo("John"));
+        assertThat(foundPerson.get(0).getFirstName(), equalTo("Jake"));
+        assertThat(foundPerson.get(1).getFirstName(), equalTo("John"));
     }
 
 }

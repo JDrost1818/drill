@@ -31,7 +31,7 @@ public class DrillUnitTest {
         Drill<Person> personDrill = Drill
                 .where((Specification<Person>) null)
                 .and((Specification<Person>) null)
-                .and(Person_.name).equalTo("Jake");
+                .and(Person_.firstName).equalTo("Jake");
 
         assertThat(personDrill.spec, notNullValue());
     }
