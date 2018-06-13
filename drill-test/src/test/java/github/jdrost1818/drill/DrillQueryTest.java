@@ -77,7 +77,7 @@ public class DrillQueryTest {
     }
 
     @Test
-    public void testSpecificationsGetOredCorrectly() {
+    public void testSpecificationsGetOrderedCorrectly() {
         Person shouldBeFound1 = Person.builder().firstName("Jake").build();
         Person shouldBeFound2 = Person.builder().firstName("John").build();
         Person shouldNotBeFound = Person.builder().firstName("Jeff").build();
@@ -94,4 +94,41 @@ public class DrillQueryTest {
         assertThat(foundPerson.get(1).getFirstName(), equalTo("John"));
     }
 
+    @Test
+    public void testSpecificationColumnsEqual() {
+        Person shouldBeFound1 = Person.builder().firstName("name").lastName("name").build();
+        Person shouldBeFound2 = Person.builder().firstName("otherName").lastName("otherName").build();
+        Person shouldNotBeFound = Person.builder().firstName("name").lastName("otherName").build();
+
+        Drill<Person> drill = Drill
+                .where(Person_.firstName).equalTo(Person_.lastName);
+
+        personRepository.saveAll(Arrays.asList(shouldBeFound1, shouldBeFound2, shouldNotBeFound));
+
+        List<Person> foundPeople = personRepository.findAll(drill);
+
+        assertThat(foundPeople, hasSize(2));
+        assertThat(foundPeople.get(0).getFirstName(), equalTo("name"));
+        assertThat(foundPeople.get(0).getLastName(), equalTo("name"));
+        assertThat(foundPeople.get(1).getFirstName(), equalTo("otherName"));
+        assertThat(foundPeople.get(1).getLastName(), equalTo("otherName"));
+    }
+
+    @Test
+    public void testSpecificationColumnsEqual_not() {
+        Person shouldBeFound = Person.builder().firstName("name").lastName("otherName").build();
+        Person shouldNotBeFound1 = Person.builder().firstName("name").lastName("name").build();
+        Person shouldNotBeFound2 = Person.builder().firstName("otherName").lastName("otherName").build();
+
+        Drill<Person> drill = Drill
+                .where(Person_.firstName).not().equalTo(Person_.lastName);
+
+        personRepository.saveAll(Arrays.asList(shouldBeFound, shouldNotBeFound1, shouldNotBeFound2));
+
+        List<Person> foundPerson = personRepository.findAll(drill);
+
+        assertThat(foundPerson, hasSize(1));
+        assertThat(foundPerson.get(0).getFirstName(), equalTo("name"));
+        assertThat(foundPerson.get(0).getLastName(), equalTo("otherName"));
+    }
 }
