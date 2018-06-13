@@ -10,12 +10,12 @@
   <title>Inverted Triangle</title>
   <g id="svg_15">
    <g id="svg_5">
-    <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_down_right" x1="4"   y1="-4"  x2="500" y2="1000"  stroke-width="8" stroke="#f64747" fill="none"/>
-    <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_up_right"   x1="500" y1="1000" x2="996" y2="-4"  stroke-width="8" stroke="#f64747" fill="none"/>
+    <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_down_right" x1="12"   y1="-4"  x2="500" y2="1000"  stroke-width="24" stroke="#f64747" fill="none"/>
+    <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_up_right"   x1="500" y1="1000" x2="988" y2="-4"  stroke-width="24" stroke="#f64747" fill="none"/>
    </g>
    <g id="svg_14">
-    <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_top_cross" x1="83" y1="268"  x2="841" y2="417" stroke-width="8" stroke="#3fc380" fill="none"/>
-    <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_bot_cross" x1="250" y1="600"  x2="705" y2="695" stroke-width="8" stroke="#3fc380" fill="none"/>
+    <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_top_cross" x1="83" y1="268"  x2="841" y2="417" stroke-width="24" stroke="#3fc380" fill="none"/>
+    <line stroke-linecap="undefined" stroke-linejoin="undefined" id="svg_bot_cross" x1="250" y1="600"  x2="705" y2="695" stroke-width="24" stroke="#3fc380" fill="none"/>
    </g>
   </g>
  </g>
