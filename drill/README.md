@@ -1,4 +1,4 @@
-# Drill
+[![drill](http://jakedrost.me/drill/img/drill-logo-with-text.png)](http://jakedrost.me/drill)
 ```
 Specification
     .<Person>where((root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.notEqual(root.get(Person_.id), 1))
