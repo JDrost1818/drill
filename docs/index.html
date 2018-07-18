@@ -1,1 +1,127 @@
-<h1>Hello Drill</h1>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Code generation tool that helps you build websites faster">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Drill</title>
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="img/drill-logo.ico">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
+    <meta name="msapplication-TileColor" content="#3372DF">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+    <link rel="canonical" href="http://www.example.com/">
+    -->
+
+    <link href='http://fonts.googleapis.com/css?family=Raleway:300' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://cdn.rawgit.com/konpa/devicon/89f2f44ba07ea3fff7e561c2142813b278c2d6c6/devicon.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./css/frameworks.css">
+    <link rel="stylesheet" href="css/drill.css">
+</head>
+
+<body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary" style="position: fixed;">
+        <div class="mdl-layout__header-row">
+
+            <div class="sticky-drawer">
+                <i id="drawer-icon" class="material-icons"></i>
+            </div>
+
+            <a href="/">
+                <img src="img/drill-logo-with-text.png"/>
+            </a>
+
+        </div>
+    </header>
+
+    <div class="nav-wrapper">
+        <nav id="side-links-wrapper" class="">
+
+            <ul class="side-links">
+                <li class="side-link-entry">
+                    <a href="documentation">Documentation</a>
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+</div>
+
+<main class="cd-main-content">
+
+    <div class="cd-fixed-bg cd-bg-1">
+        <div class="content">
+            <div id="home-title-wrapper" class="center">
+                <h1 id="home-title-header">Write Fluently</h1>
+                <p id="home-title-sub-text">
+                    Increase readability and maintainability by writing highly-expressive code</p>
+            </div>
+        </div>
+    </div> <!-- cd-fixed-bg -->
+
+    <div class="cd-scrolling-bg cd-color-1 green row">
+        <div class="content col l8 offset-l2 s12">
+            <ul id="icon-wrapper row">
+
+                <li class="info-decal-wrapper col m4 s12">
+                    <div class="circle info-decal">
+                        <i class="material-icons">build</i>
+                    </div>
+                    <h5>Configure Options</h5>
+                    <p>
+                        Plaster performs inspections and allows for project and generation specific customizations.
+                        All combined, developers can customize exactly how code gets generated.
+                    </p>
+                </li>
+
+                <li class="info-decal-wrapper col m4 s12">
+                    <div class="circle info-decal">
+                        <i class="material-icons">code</i>
+                    </div>
+                    <h5>Generate Code</h5>
+                    <p>
+                        Utilize the command line tool to easily create files which adhere to the desired settings.
+                    </p>
+                </li>
+
+                <li class="info-decal-wrapper col m4 s12">
+                    <div class="circle info-decal">
+                        <i class="material-icons">autorenew</i>
+                    </div>
+                    <h5>Rinse & Repeat</h5>
+                    <p>
+                        Add more files to your project, remove unneeded code, and/or modify existing files - all without
+                        ever leaving the comfort of your terminal.
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div> <!-- cd-scrolling-bg -->
+</main>
+</body>
+
+<footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="./js/modernizr.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+    <script src="./js/material.min.js"></script>
+    <script src="js/drill.js"></script>
+</footer>
+</html>
